@@ -57,10 +57,20 @@ To check, open a terminal (macOS: **Applications → Utilities → Terminal**; W
 
 - **macOS**: typing `git --version` offers to install the Command Line Developer Tools, which include git. Install Node.js with the installer from [nodejs.org](https://nodejs.org/) (the "LTS" version)
 - **Windows**: install [Git for Windows](https://git-scm.com/download/win) and the Node.js installer from [nodejs.org](https://nodejs.org/). Open a new PowerShell window afterwards so it finds them
+- **Windows with Fontra in WSL**: git and Node.js must be installed **inside WSL** (Ubuntu or another Linux), not on the Windows side. See [Fontra in WSL](#fontra-in-wsl-windows)
 
 ### Step 1: Start the git bridge
 
-Paste this into the terminal and press Return:
+The bridge runs in its own terminal window, next to Fontra:
+
+| How you start Fontra | Windows you need |
+| --- | --- |
+| From a terminal (`fontra filesystem …`, `fontra …`) | **Two**: the one Fontra runs in, and a second one for the bridge. Fontra keeps its window busy, so open a new window or tab for the bridge |
+| Fontra Pak (the app) | One, for the bridge |
+
+Both keep running while you work: Fontra in its window, the bridge in the other.
+
+Open the terminal window for the bridge, paste this and press Return:
 
 ```plaintext
 npx --yes github:dg4-dev/fontra-source-control
@@ -77,6 +87,27 @@ Keep this window open while you use Fontra. Press Ctrl+C to stop.
 **Keep this terminal window open** while you use Fontra; closing it stops the bridge. Each time you want to use the plugin, run the same command again. To stop the bridge, press Ctrl+C in its window or close the window.
 
 `npx` comes with Node.js; nothing else needs to be installed. To use the bridge of a particular release, add its tag: `npx --yes github:dg4-dev/fontra-source-control#v0.1.0`.
+
+It does not matter which folder the terminal is in when you start the bridge: it finds the repository from the font Fontra has open.
+
+npx may print `npm warn gitignore-fallback …` the first time. It is only a notice about how npm picked the files to download, and can be ignored.
+
+#### Fontra in WSL (Windows)
+
+If Fontra runs inside WSL (you start it from an Ubuntu terminal, and your fonts are in folders like `/home/you/…`), the bridge must run **in WSL too**, in a second WSL window:
+
+1. Open a second WSL terminal: in Windows Terminal, open a new tab with your Linux distribution (for example "Ubuntu"), or start "Ubuntu" from the Start menu again
+2. In it, run the same command as above: `npx --yes github:dg4-dev/fontra-source-control`
+
+```plaintext
+WSL window 1:  fontra filesystem ~/Fonts                        ← Fontra
+WSL window 2:  npx --yes github:dg4-dev/fontra-source-control   ← git bridge
+Windows:       the browser with Fontra open (http://localhost:8000)
+```
+
+Why: Fontra in WSL tells the plugin Linux paths such as `/home/you/Fonts/MyFont.ufo`. A bridge started from PowerShell runs on the Windows side, cannot open those paths, and uses Windows' git instead of the one you use in WSL.
+
+git and Node.js 22 have to be installed in WSL: `sudo apt install git` for git, and [nvm](https://github.com/nvm-sh/nvm) with `nvm install 22` for Node.js (the `nodejs` package from apt is often older than 22). The Windows browser reaches the bridge at `http://localhost:8765` the same way it reaches Fontra, through WSL's localhost forwarding, which is on by default.
 
 ### Step 2: Add the plugin to Fontra
 
@@ -132,6 +163,8 @@ From a local copy of this repository, use `node bridge/cli.js` with the same opt
 | `Port 8765 is already in use` in the terminal | A bridge is already running (look for another terminal window), or another program uses the port: add `--port 9000` and change the bridge address in Bridge Settings |
 | `npx: command not found` / `node` is not recognized | Node.js is not installed, or the terminal was opened before installing it. Install Node.js and open a new terminal window |
 | "git was not found" | Install git (see "What you need") and restart the bridge |
+| "The git bridge could not work with this font" with `project not found` or `not a font project`, and Fontra runs in WSL | The bridge was started from PowerShell. Stop it and start it in a WSL window instead (see [Fontra in WSL](#fontra-in-wsl-windows)) |
+| The bridge's window was closed by mistake, or the computer restarted | Start the bridge again (step 1) and press **Retry** in the panel. Fontra does not need to be restarted |
 | "The git bridge could not work with this font" with `outside the bridge's folder` | The bridge was started with a folder and the font is not inside it. Start it without a folder, or with a folder that contains the font |
 | Push or pull fails with an authentication error | Set up a git login once (step 4) |
 | A pull or checkout changed files but Fontra still shows the old glyphs | Reload the editor page. UFO, designspace and `.fontra` fonts reload by themselves |

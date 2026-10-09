@@ -35,6 +35,9 @@ Check them in a terminal with `git --version` and `node --version`.
 
    It prints `Fontra git bridge is running on http://localhost:8765`. Keep the window open while you use Fontra, and run the same command again the next time. No folder needs to be given: the bridge works with whatever font Fontra opens.
 
+   - **If you start Fontra from a terminal**, that window is busy running Fontra: open a **second** terminal window or tab for the bridge, and keep both open
+   - **If Fontra runs in WSL on Windows**, start the bridge in a second **WSL** window (for example a new "Ubuntu" tab in Windows Terminal), not in PowerShell. Fontra in WSL uses Linux paths (`/home/…`) that a bridge on the Windows side cannot open. git and Node.js 22 must be installed inside WSL
+
 2. **Add the plugin.** In Fontra, choose **Fontra → Plugin Manager** in the menu bar, press "+" and enter `dg4-dev/fontra-source-control`. Then open a font in the glyph editor.
 
 3. **Open the panel.** Click the branch icon in the left sidebar. If the folder that contains the font is not a git repository yet, press **Initialize Repository**. The repository can also be in a folder above the font; for example a `.git` folder next to a `.fontra` or `.designspace` file is found.
@@ -82,6 +85,9 @@ Fontra のグリフエディターで Git を使えるようにするプラグ�
    ```
 
    `Fontra git bridge is running on http://localhost:8765` と表示されたら起動しています。Fontra を使っている間はこのウィンドウを開いたままにし、次に使うときも同じコマンドを実行します。フォルダーを指定する必要はありません。ブリッジは Fontra で開いたフォントに合わせて動きます。
+
+   - **Fontra をターミナルから起動している場合**、そのウィンドウは Fontra の実行に使われています。ブリッジ用に **2 つ目**のターミナルのウィンドウ(またはタブ)を開き、両方とも開いたままにしてください
+   - **Windows の WSL で Fontra を動かしている場合**、ブリッジは PowerShell ではなく、2 つ目の **WSL** のウィンドウ(Windows Terminal の新しい「Ubuntu」タブなど)で起動してください。WSL の Fontra は `/home/…` のような Linux のパスを使うため、Windows 側で動くブリッジからは開けません。git と Node.js 22 も WSL の中に入れておく必要があります
 
 2. **プラグインを追加します。** Fontra のメニューバーの「Fontra」→「プラグインマネージャー」を開いて「+」を押し、`dg4-dev/fontra-source-control` を入力します。そのあと、グリフエディターでフォントを開きます。
 
