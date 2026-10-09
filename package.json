@@ -1,0 +1,18 @@
+{
+  "name": "fontra-source-control",
+  "version": "0.1.0",
+  "description": "Fontra plugin that adds a Git source control panel, graphical glyph and kerning diffs, and a Git Graph view",
+  "private": true,
+  "license": "GPL-3.0-only",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "fontra-git-bridge": "bridge/cli.js"
+  },
+  "scripts": {
+    "bridge": "node bridge/cli.js",
+    "test": "node --test \"test/*.test.js\""
+  }
+}
