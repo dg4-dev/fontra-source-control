@@ -1,0 +1,5 @@
+{
+  "name": "Source Control",
+  "init": "src/start.js",
+  "function": "start"
+}
