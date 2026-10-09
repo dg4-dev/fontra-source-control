@@ -23,8 +23,9 @@ export default {
   "panel.unreachable.message":
     "源代码管理通过运行在 {url} 的本地小程序（Git 桥接程序）使用 git。请在终端中这样启动它：",
   "panel.unreachable.hint":
-    '请传入启动 Fontra 时使用的同一文件夹或字体文件；使用 Fontra Pak 时传入 "-"。',
-  "panel.fontFolder": "字体文件夹",
+    "使用 Fontra 期间请保持该终端窗口打开。需要 Node.js 22 或更高版本以及 git。",
+  "panel.setupGuide": "设置指南",
+  "panel.error.title": "Git 桥接程序无法处理此字体",
   "panel.localBranches": "分支",
   "panel.remoteBranches": "远程分支",
 
@@ -48,6 +49,7 @@ export default {
   "action.discardAll": "放弃所有更改",
   "action.markResolved": "标记为已解决",
   "action.openDiff": "打开更改",
+  "action.copyCommand": "复制命令",
   "action.copyPath": "复制路径",
   "action.pull": "拉取",
   "action.push": "推送",

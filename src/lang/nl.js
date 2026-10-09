@@ -24,8 +24,9 @@ export default {
   "panel.unreachable.message":
     "Broncodebeheer gebruikt git via een klein lokaal programma (de Git-bridge) op {url}. Start het in een terminal met:",
   "panel.unreachable.hint":
-    'Geef dezelfde map of hetzelfde fontbestand op waarmee Fontra is gestart, of "-" voor Fontra Pak.',
-  "panel.fontFolder": "fontmap",
+    "Laat dat terminalvenster open zolang je Fontra gebruikt. Vereist Node.js 22 of nieuwer en git.",
+  "panel.setupGuide": "Installatiehandleiding",
+  "panel.error.title": "De Git-bridge kon niet met dit font werken",
   "panel.localBranches": "Branches",
   "panel.remoteBranches": "Externe branches",
 
@@ -49,6 +50,7 @@ export default {
   "action.discardAll": "Alle wijzigingen verwerpen",
   "action.markResolved": "Als opgelost markeren",
   "action.openDiff": "Wijzigingen openen",
+  "action.copyCommand": "Opdracht kopiëren",
   "action.copyPath": "Pad kopiëren",
   "action.pull": "Pull",
   "action.push": "Push",

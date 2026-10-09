@@ -24,8 +24,9 @@ export default {
   "panel.unreachable.message":
     "Управление версиями работает с git через небольшую локальную программу (мост Git) по адресу {url}. Запустите её в терминале:",
   "panel.unreachable.hint":
-    'Укажите ту же папку или тот же файл шрифта, с которыми запущен Fontra, или "-" для Fontra Pak.',
-  "panel.fontFolder": "папка со шрифтами",
+    "Не закрывайте это окно терминала, пока работаете в Fontra. Нужны Node.js 22 или новее и git.",
+  "panel.setupGuide": "Инструкция по установке",
+  "panel.error.title": "Мост Git не смог работать с этим шрифтом",
   "panel.localBranches": "Ветки",
   "panel.remoteBranches": "Удалённые ветки",
 
@@ -49,6 +50,7 @@ export default {
   "action.discardAll": "Отменить все изменения",
   "action.markResolved": "Отметить как разрешённый",
   "action.openDiff": "Открыть изменения",
+  "action.copyCommand": "Копировать команду",
   "action.copyPath": "Копировать путь",
   "action.pull": "Получить (pull)",
   "action.push": "Отправить (push)",

@@ -24,8 +24,9 @@ export default {
   "panel.unreachable.message":
     "Le contrôle de code source utilise git par un petit programme local (le pont Git) à l’adresse {url}. Lancez-le dans un terminal avec :",
   "panel.unreachable.hint":
-    'Indiquez le même dossier ou fichier de fonte qu’au lancement de Fontra, ou "-" pour Fontra Pak.',
-  "panel.fontFolder": "dossier des fontes",
+    "Gardez cette fenêtre de terminal ouverte pendant que vous utilisez Fontra. Nécessite Node.js 22 ou plus récent et git.",
+  "panel.setupGuide": "Guide d’installation",
+  "panel.error.title": "Le pont Git n’a pas pu traiter cette fonte",
   "panel.localBranches": "Branches",
   "panel.remoteBranches": "Branches distantes",
 
@@ -49,6 +50,7 @@ export default {
   "action.discardAll": "Ignorer toutes les modifications",
   "action.markResolved": "Marquer comme résolu",
   "action.openDiff": "Ouvrir les modifications",
+  "action.copyCommand": "Copier la commande",
   "action.copyPath": "Copier le chemin",
   "action.pull": "Tirer",
   "action.push": "Envoyer",

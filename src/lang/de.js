@@ -24,8 +24,9 @@ export default {
   "panel.unreachable.message":
     "Die Quellcodeverwaltung nutzt git über ein kleines lokales Programm (die Git-Bridge) unter {url}. Starte sie in einem Terminal mit:",
   "panel.unreachable.hint":
-    'Gib denselben Ordner oder dieselbe Schriftdatei an, mit der Fontra gestartet wurde, oder "-" für Fontra Pak.',
-  "panel.fontFolder": "Schriftordner",
+    "Lass das Terminalfenster geöffnet, solange du Fontra benutzt. Benötigt Node.js 22 oder neuer und git.",
+  "panel.setupGuide": "Anleitung zur Einrichtung",
+  "panel.error.title": "Die Git-Bridge konnte mit dieser Schrift nicht arbeiten",
   "panel.localBranches": "Branches",
   "panel.remoteBranches": "Remote-Branches",
 
@@ -49,6 +50,7 @@ export default {
   "action.discardAll": "Alle Änderungen verwerfen",
   "action.markResolved": "Als gelöst markieren",
   "action.openDiff": "Änderungen öffnen",
+  "action.copyCommand": "Befehl kopieren",
   "action.copyPath": "Pfad kopieren",
   "action.pull": "Pull",
   "action.push": "Push",

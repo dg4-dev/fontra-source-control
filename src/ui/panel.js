@@ -17,6 +17,8 @@ import {
 } from "./dom.js";
 
 export const PANEL_IDENTIFIER = "source-control";
+const BRIDGE_COMMAND = "npx --yes github:dg4-dev/fontra-source-control";
+const SETUP_GUIDE_URL = "https://github.com/dg4-dev/fontra-source-control#setup";
 const ELEMENT_NAME = "fontra-source-control-panel";
 
 const styles = `
@@ -64,6 +66,9 @@ const styles = `
     gap: 0.6em;
     padding: 0.4em 0.4em;
     line-height: 1.45;
+  }
+  .notice .link {
+    color: inherit;
   }
   .notice code, .notice .path {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -341,6 +346,8 @@ export function definePanelElement() {
       let list = [];
       if (state.connection === "unreachable") {
         top = this._renderUnreachable();
+      } else if (!status && state.lastError) {
+        top = this._renderBridgeError();
       } else if (!status) {
         top = [el("div", { class: "notice muted" }, t("panel.loading"))];
       } else if (!status.initialized) {
@@ -357,7 +364,6 @@ export function definePanelElement() {
     }
 
     _renderUnreachable() {
-      const command = `npx --yes github:dg4-dev/fontra-source-control <${t("panel.fontFolder")}>`;
       return [
         el(
           "div",
@@ -368,8 +374,43 @@ export function definePanelElement() {
             {},
             t("panel.unreachable.message", { url: this.state.client.url })
           ),
-          el("code", {}, command),
+          el("code", {}, BRIDGE_COMMAND),
           el("span", { class: "muted" }, t("panel.unreachable.hint")),
+          el(
+            "div",
+            { class: "branch-row" },
+            el(
+              "button",
+              {
+                class: "button",
+                type: "button",
+                onclick: () => copyText(BRIDGE_COMMAND),
+              },
+              t("action.copyCommand")
+            ),
+            el(
+              "button",
+              { class: "button", type: "button", onclick: () => this.state.refresh() },
+              t("action.retry")
+            )
+          ),
+          el(
+            "a",
+            { class: "link", href: SETUP_GUIDE_URL, target: "_blank", rel: "noopener" },
+            t("panel.setupGuide")
+          )
+        ),
+      ];
+    }
+
+    // The bridge answered, but could not work with this font
+    _renderBridgeError() {
+      return [
+        el(
+          "div",
+          { class: "notice" },
+          el("strong", {}, t("panel.error.title")),
+          el("code", {}, this.state.lastError),
           el(
             "div",
             { class: "branch-row" },

@@ -149,23 +149,39 @@ test("log, refs, name-status, stash and remote parsers", () => {
 
 // --- projects --------------------------------------------------------------------
 
-test("project identifiers resolve like Fontra's filesystem project manager", () => {
+test("projects resolve from absolute paths and Fontra project identifiers", () => {
   const folder = makeFolder("projects");
+  const fontPath = path.join(folder, "Font.ufo");
+  const expected = { projectPath: fontPath, workDir: folder };
+
+  // No folder given: any font by absolute path (what the plugin sends)
+  assert.equal(resolveRoot(undefined), null);
+  assert.equal(resolveRoot("-"), null);
+  assert.deepEqual(resolveProject(null, fontPath), expected);
+  // Fontra started with "-" drops the leading slash
+  assert.deepEqual(resolveProject(null, fontPath.slice(1)), expected);
+
+  // A folder limits the bridge to fonts inside it
   const root = resolveRoot(folder);
   assert.equal(root, folder);
-  assert.equal(resolveRoot(path.join(folder, "Font.ufo")), folder);
-  assert.equal(resolveRoot("-"), null);
-  assert.deepEqual(resolveProject(root, "Font.ufo"), {
-    projectPath: path.join(folder, "Font.ufo"),
-    workDir: folder,
-  });
-  // Absolute mode: Fontra drops the leading slash
-  assert.equal(
-    resolveProject(null, path.join(folder, "Font.ufo").slice(1)).workDir,
-    folder
+  assert.equal(resolveRoot(fontPath), folder);
+  assert.deepEqual(resolveProject(root, "Font.ufo"), expected);
+  assert.deepEqual(resolveProject(root, fontPath), expected);
+  const otherFolder = makeFolder("elsewhere");
+  assert.throws(
+    () => resolveProject(root, path.join(otherFolder, "Font.ufo")),
+    /outside the bridge's folder/
   );
   assert.throws(() => resolveProject(root, "../x.ufo"), ProjectError);
   assert.throws(() => resolveProject(root, "Missing.ufo"), ProjectError);
+
+  // Only font projects
+  assert.throws(() => resolveProject(null, folder), /not a font project/);
+  assert.throws(
+    () => resolveProject(null, path.join(folder, "Font.ufo", "fontinfo.plist")),
+    /not a font project/
+  );
+
   assert.ok(isInside("/a/b", "/a/b/c"));
   assert.ok(!isInside("/a/b", "/a/bc"));
   assert.ok(!isInside("/a/b", "/a"));

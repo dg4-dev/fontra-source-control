@@ -22,54 +22,121 @@ A [Fontra](https://github.com/fontra/fontra) plugin that brings Git into the gly
 
 ## How it fits together
 
-A Fontra plugin runs in the browser and cannot run git itself. The plugin therefore talks to a small local program, the **git bridge** (`bridge/`), which runs git commands for it. The bridge is a single Node.js script with no dependencies.
+A Fontra plugin runs inside the browser, and a browser page is not allowed to run programs such as git. So this plugin comes in two parts:
+
+- **The plugin**, which Fontra loads like any other plugin. It draws the panel, the diffs and the graph
+- **The git bridge**, a small program that runs on your computer while you use Fontra and runs git for the plugin. It is a single Node.js script with no dependencies (`bridge/`)
 
 ```plaintext
-Fontra (browser) ── plugin ──HTTP──▶ git bridge (localhost:8765) ──▶ git
+Fontra (browser) ── plugin ──▶ git bridge (http://localhost:8765) ──▶ git ──▶ your font's repository
 ```
 
-The bridge finds the repository from the font the editor has open: it runs `git rev-parse --show-toplevel` in the folder that contains the font (the `.ufo`, `.designspace`, `.fontra` or `.glyphs` file or folder). The `.git` folder can therefore be in that folder or any folder above it. "Initialize Repository" creates it in the folder that contains the font.
-
-## Installation
-
-You need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/) 22 or later.
-
-### 1. Start the git bridge
-
-Pass the same folder or font file that Fontra was started with:
+The plugin tells the bridge where the open font is, and the bridge finds the repository by looking for a `.git` folder in the folder that contains the font (the `.fontra`, `.ufo`, `.designspace` or `.glyphs` file or folder) and in the folders above it. With this layout:
 
 ```plaintext
-npx --yes github:dg4-dev/fontra-source-control /path/to/fonts
+MyFamily/
+  .git/
+  MyFamily.designspace
+  MyFamily-Regular.ufo/
+  MyFamily-Bold.ufo/
 ```
 
-For Fontra Pak, or Fontra started with `fontra filesystem -`, projects are opened by absolute path; pass `-`:
+opening any of the fonts uses the `MyFamily` repository. If there is no repository yet, the panel offers to create one in the folder that contains the font.
+
+## Setup
+
+### What you need
+
+| | Why | Check that it is installed |
+| --- | --- | --- |
+| [Fontra](https://fontra.xyz/) | | |
+| [git](https://git-scm.com/downloads) | Does the actual version control | `git --version` |
+| [Node.js](https://nodejs.org/) 22 or later | Runs the git bridge | `node --version` |
+
+To check, open a terminal (macOS: **Applications → Utilities → Terminal**; Windows: **PowerShell** from the Start menu), type the command and press Return. A version number means it is installed.
+
+- **macOS**: typing `git --version` offers to install the Command Line Developer Tools, which include git. Install Node.js with the installer from [nodejs.org](https://nodejs.org/) (the "LTS" version)
+- **Windows**: install [Git for Windows](https://git-scm.com/download/win) and the Node.js installer from [nodejs.org](https://nodejs.org/). Open a new PowerShell window afterwards so it finds them
+
+### Step 1: Start the git bridge
+
+Paste this into the terminal and press Return:
 
 ```plaintext
-npx --yes github:dg4-dev/fontra-source-control -
+npx --yes github:dg4-dev/fontra-source-control
 ```
 
-From a local copy of this repository:
+The first time, it downloads the bridge from GitHub, which takes a few seconds. When it is ready, it prints:
 
 ```plaintext
-node bridge/cli.js /path/to/fonts
+Fontra git bridge is running on http://localhost:8765
+It works with any font that Fontra opens.
+Keep this window open while you use Fontra. Press Ctrl+C to stop.
 ```
 
-| Option | Description |
-| --- | --- |
-| `--port N` | Port to listen on (default 8765). Change the plugin's bridge address to match (Git menu → Bridge Settings…) |
-| `--host HOST` | Address to listen on (default 127.0.0.1) |
-| `--allow-origin URL` | Also accept requests from this origin (repeatable). Pages on `localhost`, `127.0.0.1` and `[::1]` are always accepted |
-| `--quiet` | Do not log each request |
+**Keep this terminal window open** while you use Fontra; closing it stops the bridge. Each time you want to use the plugin, run the same command again. To stop the bridge, press Ctrl+C in its window or close the window.
 
-Keep the bridge running while you use the plugin. Push and pull use your normal git credentials (credential helper, SSH agent); git is never allowed to ask for a password interactively, so a push that needs one fails with an error message instead of waiting.
+`npx` comes with Node.js; nothing else needs to be installed. To use the bridge of a particular release, add its tag: `npx --yes github:dg4-dev/fontra-source-control#v0.1.0`.
 
-### 2. Add the plugin to Fontra
+### Step 2: Add the plugin to Fontra
 
-In Fontra, open **Application settings → Plugin Manager**, press "+" and enter the plugin address.
+In Fontra, choose **Fontra → Plugin Manager** in the menu bar (Application settings → Plugin Manager), press "+" and enter:
 
 ```plaintext
 dg4-dev/fontra-source-control
 ```
+
+Then open (or reload) a font in the glyph editor.
+
+### Step 3: Open the Source Control panel
+
+Click the branch icon in the left sidebar of the glyph editor.
+
+- If it says **"The git bridge is not running"**, go back to step 1. The panel has a button to copy the command
+- If it says **"…is not a git repository"**, press **Initialize Repository** to create one in the folder that contains the font
+- Otherwise you see your changes. Type a message and press **Commit**
+
+### Step 4 (optional): Connect to GitHub or another server
+
+1. Create an empty repository on GitHub (no README, no license, so that it has no commits)
+2. In the panel, choose **⋯ → Add Remote…**, keep the name `origin` and paste the repository's URL
+3. Press the push button (↑) in the branch row
+
+The bridge uses your computer's normal git login, but **git is not allowed to ask for a password through the bridge**. If you have never pushed to GitHub from this computer, set up a login once:
+
+- Install [GitHub CLI](https://cli.github.com/) and run `gh auth login`, or
+- Use [GitHub Desktop](https://desktop.github.com/) and push once from it, or
+- Set up an [SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) and use the repository's SSH URL (`git@github.com:…`)
+
+You can check that it works by running `git push` in the font's folder in a terminal: if it pushes without asking for anything, the bridge can push too.
+
+### Bridge options
+
+Add these after the command, for example `npx --yes github:dg4-dev/fontra-source-control --port 9000`.
+
+| Option | Description |
+| --- | --- |
+| `FOLDER` | Only work with fonts inside this folder, for example `npx --yes github:dg4-dev/fontra-source-control ~/Fonts`. Without it, the bridge works with any font Fontra opens |
+| `--port N` | Port to listen on (default 8765). Also set the plugin's bridge address to match: **Git → Bridge Settings…** in the menu bar |
+| `--host HOST` | Address to listen on (default 127.0.0.1) |
+| `--allow-origin URL` | Also accept requests from this origin (repeatable). Pages on `localhost`, `127.0.0.1` and `[::1]` are always accepted |
+| `--quiet` | Do not log each request |
+
+From a local copy of this repository, use `node bridge/cli.js` with the same options.
+
+### Troubleshooting
+
+| What you see | What to do |
+| --- | --- |
+| "The git bridge is not running" | Start the bridge (step 1) and press **Retry**. If it is running on another port, set **Git → Bridge Settings…** to match |
+| `Port 8765 is already in use` in the terminal | A bridge is already running (look for another terminal window), or another program uses the port: add `--port 9000` and change the bridge address in Bridge Settings |
+| `npx: command not found` / `node` is not recognized | Node.js is not installed, or the terminal was opened before installing it. Install Node.js and open a new terminal window |
+| "git was not found" | Install git (see "What you need") and restart the bridge |
+| "The git bridge could not work with this font" with `outside the bridge's folder` | The bridge was started with a folder and the font is not inside it. Start it without a folder, or with a folder that contains the font |
+| Push or pull fails with an authentication error | Set up a git login once (step 4) |
+| A pull or checkout changed files but Fontra still shows the old glyphs | Reload the editor page. UFO, designspace and `.fontra` fonts reload by themselves |
+
+### Plugin address for development branches
 
 Fontra loads `owner/repo` addresses through jsDelivr (`https://cdn.jsdelivr.net/gh/<owner>/<repo>@latest`), so the repository must be public. `@latest` points to the newest release tag, or to the default branch (`main`) when there are no tags.
 
@@ -81,7 +148,7 @@ https://cdn.jsdelivr.net/gh/dg4-dev/fontra-source-control@develop
 
 jsDelivr caches branch contents for a while, so updates may not show up right away.
 
-#### From a local copy (for development)
+### From a local copy (for development)
 
 Serve your working copy with CORS headers and register its URL as the plugin address. Your edits are picked up each time you reopen the editor.
 
@@ -93,7 +160,7 @@ npx http-server /path/to/fontra-source-control -p 8123 --cors -c-1
 http://localhost:8123
 ```
 
-After registering, reopen the glyph editor to load the plugin.
+Start the bridge from the same copy with `node bridge/cli.js`.
 
 ## Usage
 
@@ -159,14 +226,16 @@ Terms that also appear in Fontra, such as "component", "anchor", "contour", "lay
 
 ## How it works
 
-- **Bridge**: every request is a POST to `/api/<command>` with a JSON body that includes the Fontra project identifier. The bridge maps the identifier to a folder the same way Fontra's filesystem project manager does, opens the repository that contains it, validates every path and revision name, and runs git with an argument list (no shell), `GIT_TERMINAL_PROMPT=0` and literal pathspecs. Commands that change the repository run one at a time per repository
+- **Finding the font**: the plugin asks Fontra for the open font's absolute path (`getMetaInfo()`, which Fontra's filesystem project manager answers with the path) and sends it with every request. When that is not available it sends the project identifier from the editor URL, which the bridge resolves the way Fontra's filesystem project manager does. The bridge only accepts paths of font projects (`.designspace`, `.ufo`, `.fontra`, `.glyphs`, `.glyphspackage`, `.rcjk`, and the binary formats Fontra opens)
+- **Bridge**: every request is a POST to `/api/<command>` with a JSON body. The bridge opens the repository that contains the font, validates every path and revision name, and runs git with an argument list (no shell), `GIT_TERMINAL_PROMPT=0` and literal pathspecs. Commands that change the repository run one at a time per repository
 - **Security**: the bridge listens on 127.0.0.1 and only answers requests whose `Host` is a local name (against DNS rebinding) and whose `Origin`, if any, is a local page or one passed with `--allow-origin`. Requests must be `application/json`, so browsers always send a CORS preflight
 - **Diffs**: the bridge returns both versions of a file (from a commit, the index or the working tree) and a unified diff made with `git diff --no-index`. Glyph and kerning files are parsed in the browser (`src/formats/`); the fill colors come from SVG masks: the old shape masked by the outside of the new shape is red, the new shape masked by the outside of the old shape is green
 - **Graph**: `git log --branches --tags --remotes HEAD --date-order` is laid out in lanes (`src/graph-layout.js`). A lane keeps its column while it lives and freed columns are reused
 
 ## Limitations
 
-- The bridge has to be started separately; a browser plugin cannot start programs
+- The bridge has to be started separately, because a browser plugin cannot start programs. Fontra has no way for plugins to run code on its server
+- Only tested with Fontra started from the command line (`fontra filesystem …`). Fontra Pak should work the same way but has not been tested
 - The menu bar menu and the sidebar panel rely on internal APIs of Fontra's editor (`editor.addSidebarPanel()`, the menu bar's item list and others). Changes in Fontra may break them
 - Interactive rebase, submodules, worktrees, blame and partial (line-by-line) staging are not supported
 - `.glyphspackage` glyph files are found by a guess of their file names (the UFO convention), so components and kerning glyphs may not be drawn for some names

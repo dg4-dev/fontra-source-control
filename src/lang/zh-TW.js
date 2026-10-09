@@ -23,8 +23,9 @@ export default {
   "panel.unreachable.message":
     "原始檔控制透過在 {url} 執行的本機小程式（Git 橋接程式）使用 git。請在終端機中這樣啟動它：",
   "panel.unreachable.hint":
-    '請傳入啟動 Fontra 時使用的同一個資料夾或字型檔；使用 Fontra Pak 時傳入 "-"。',
-  "panel.fontFolder": "字型資料夾",
+    "使用 Fontra 期間請保持該終端機視窗開啟。需要 Node.js 22 或以上版本以及 git。",
+  "panel.setupGuide": "設定指南",
+  "panel.error.title": "Git 橋接程式無法處理這個字型",
   "panel.localBranches": "分支",
   "panel.remoteBranches": "遠端分支",
 
@@ -48,6 +49,7 @@ export default {
   "action.discardAll": "捨棄所有變更",
   "action.markResolved": "標示為已解決",
   "action.openDiff": "開啟變更",
+  "action.copyCommand": "複製命令",
   "action.copyPath": "複製路徑",
   "action.pull": "提取",
   "action.push": "推送",

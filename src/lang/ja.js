@@ -25,8 +25,9 @@ export default {
   "panel.unreachable.message":
     "ソース管理は、{url} で動く小さなローカルプログラム (Git ブリッジ) を通して git を使います。ターミナルで次のように起動してください:",
   "panel.unreachable.hint":
-    'Fontra の起動時に渡したのと同じフォルダーかフォントファイルを指定します。Fontra Pak では "-" を指定します。',
-  "panel.fontFolder": "フォントのフォルダー",
+    "Fontra を使っている間は、そのターミナルのウィンドウを開いたままにしてください。Node.js 22 以降と git が必要です。",
+  "panel.setupGuide": "セットアップの手順",
+  "panel.error.title": "Git ブリッジがこのフォントを扱えませんでした",
   "panel.localBranches": "ブランチ",
   "panel.remoteBranches": "リモートブランチ",
 
@@ -50,6 +51,7 @@ export default {
   "action.discardAll": "すべての変更を破棄",
   "action.markResolved": "解決済みにする",
   "action.openDiff": "変更を開く",
+  "action.copyCommand": "コマンドをコピー",
   "action.copyPath": "パスをコピー",
   "action.pull": "プル",
   "action.push": "プッシュ",

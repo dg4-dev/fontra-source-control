@@ -25,8 +25,9 @@ export default {
   "panel.unreachable.message":
     "Il controllo del codice sorgente usa git tramite un piccolo programma locale (il bridge Git) su {url}. Avvialo in un terminale con:",
   "panel.unreachable.hint":
-    'Indica la stessa cartella o lo stesso file di font con cui è stato avviato Fontra, oppure "-" per Fontra Pak.',
-  "panel.fontFolder": "cartella dei font",
+    "Tieni aperta quella finestra del terminale mentre usi Fontra. Servono Node.js 22 o successivo e git.",
+  "panel.setupGuide": "Guida all’installazione",
+  "panel.error.title": "Il bridge Git non è riuscito a gestire questo font",
   "panel.localBranches": "Branch",
   "panel.remoteBranches": "Branch remoti",
 
@@ -50,6 +51,7 @@ export default {
   "action.discardAll": "Rimuovi tutte le modifiche",
   "action.markResolved": "Segna come risolto",
   "action.openDiff": "Apri modifiche",
+  "action.copyCommand": "Copia comando",
   "action.copyPath": "Copia percorso",
   "action.pull": "Pull",
   "action.push": "Push",
