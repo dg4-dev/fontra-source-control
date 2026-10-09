@@ -25,8 +25,9 @@ export default {
   "panel.unreachable.message":
     "El control de código fuente usa git mediante un pequeño programa local (el puente Git) en {url}. Ejecútalo en un terminal con:",
   "panel.unreachable.hint":
-    'Indica la misma carpeta o archivo de fuente con que se inició Fontra, o "-" para Fontra Pak.',
-  "panel.fontFolder": "carpeta de fuentes",
+    "Deja abierta esa ventana del terminal mientras usas Fontra. Necesita Node.js 22 o posterior y git.",
+  "panel.setupGuide": "Guía de instalación",
+  "panel.error.title": "El puente Git no ha podido trabajar con esta fuente",
   "panel.localBranches": "Ramas",
   "panel.remoteBranches": "Ramas remotas",
 
@@ -50,6 +51,7 @@ export default {
   "action.discardAll": "Descartar todos los cambios",
   "action.markResolved": "Marcar como resuelto",
   "action.openDiff": "Abrir cambios",
+  "action.copyCommand": "Copiar comando",
   "action.copyPath": "Copiar ruta",
   "action.pull": "Extraer",
   "action.push": "Insertar",

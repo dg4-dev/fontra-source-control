@@ -24,8 +24,9 @@ export default {
   "panel.unreachable.message":
     "Source Control talks to git through a small local program (the git bridge) at {url}. Start it in a terminal with:",
   "panel.unreachable.hint":
-    'Pass the same folder or font file that Fontra was started with, or "-" for Fontra Pak.',
-  "panel.fontFolder": "font folder",
+    "Keep that terminal window open while you use Fontra. It needs Node.js 22 or later and git.",
+  "panel.setupGuide": "Setup guide",
+  "panel.error.title": "The git bridge could not work with this font",
   "panel.localBranches": "Branches",
   "panel.remoteBranches": "Remote branches",
 
@@ -49,6 +50,7 @@ export default {
   "action.discardAll": "Discard All Changes",
   "action.markResolved": "Mark as Resolved",
   "action.openDiff": "Open Changes",
+  "action.copyCommand": "Copy Command",
   "action.copyPath": "Copy Path",
   "action.pull": "Pull",
   "action.push": "Push",

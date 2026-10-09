@@ -11,9 +11,10 @@ export class BridgeError extends Error {
 }
 
 export class BridgeClient {
-  constructor(settings, projectIdentifier) {
+  // project: the font's path, or a promise of it. Requests wait for it.
+  constructor(settings, project) {
     this.settings = settings;
-    this.projectIdentifier = projectIdentifier;
+    this.project = Promise.resolve(project);
   }
 
   get url() {
@@ -21,12 +22,13 @@ export class BridgeClient {
   }
 
   async call(command, params = {}) {
+    const project = await this.project;
     let response;
     try {
       response = await fetch(`${this.url}/api/${command}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...params, project: this.projectIdentifier }),
+        body: JSON.stringify({ ...params, project }),
         cache: "no-store",
       });
     } catch (error) {

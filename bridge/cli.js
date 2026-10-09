@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 // Starts the git bridge for the Fontra Source Control plugin.
 //
-//   node bridge/cli.js [PATH] [--port 8765] [--host 127.0.0.1] [--allow-origin URL]
+//   node bridge/cli.js [FOLDER] [--port 8765] [--host 127.0.0.1] [--allow-origin URL]
 //
-// PATH is the same folder or font file that Fontra was started with, or "-"
-// when Fontra opens fonts by absolute path (fontra filesystem -, Fontra Pak).
+// Without FOLDER the bridge works with any font Fontra opens. With FOLDER it
+// only works with fonts inside that folder.
 
 import { parseArgs } from "node:util";
 import { resolveRoot } from "./project.js";
@@ -12,11 +12,13 @@ import { createBridgeServer, isLocalHostHeader } from "./server.js";
 
 const DEFAULT_PORT = 8765;
 
-const usage = `Usage: fontra-git-bridge [PATH] [options]
+const usage = `Usage: fontra-git-bridge [FOLDER] [options]
 
-PATH            The folder or font file Fontra was started with, or "-" to accept
-                absolute project paths (fontra filesystem -, Fontra Pak).
-                Defaults to the current folder.
+Runs git for the Fontra Source Control plugin. Keep it running while you use
+the plugin; press Ctrl+C to stop it.
+
+FOLDER          Optional. Only work with fonts inside this folder. Without it,
+                the bridge works with any font Fontra opens.
 
 Options:
   --port N            Port to listen on (default ${DEFAULT_PORT})
@@ -57,7 +59,7 @@ function main() {
 
   let root;
   try {
-    root = resolveRoot(positionals[0] ?? ".");
+    root = resolveRoot(positionals[0]);
   } catch (error) {
     console.error(error.message);
     process.exit(1);
@@ -88,10 +90,13 @@ function main() {
     process.exit(1);
   });
   server.listen(port, values.host, () => {
-    console.log(`Fontra git bridge listening on http://localhost:${port}`);
+    console.log(`Fontra git bridge is running on http://localhost:${port}`);
     console.log(
-      root === null ? "Projects: absolute paths" : `Projects: relative to ${root}`
+      root === null
+        ? "It works with any font that Fontra opens."
+        : `It works with fonts inside ${root}`
     );
+    console.log("Keep this window open while you use Fontra. Press Ctrl+C to stop.");
   });
 }
 

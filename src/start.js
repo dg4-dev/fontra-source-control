@@ -20,7 +20,7 @@ export function start(editor, pluginPath) {
   }
 
   const settings = new SourceControlSettings();
-  const client = new BridgeClient(settings, projectIdentifier);
+  const client = new BridgeClient(settings, fontPath(editor, projectIdentifier));
   const state = new GitState(client, settings);
   const actions = new GitActions(state, settings);
 
@@ -95,6 +95,22 @@ export function start(editor, pluginPath) {
   };
   addMenuBarMenu({ state, actions, openGraph, openPanel });
   state.refresh();
+}
+
+// The font's absolute path, so the bridge needs no folder to start with.
+// Fontra's filesystem project manager reports it through getMetaInfo(); when
+// that is not available, the editor URL's project identifier is used instead.
+async function fontPath(editor, projectIdentifier) {
+  try {
+    const metaInfo = await editor.fontController?.font?.getMetaInfo?.();
+    const path = metaInfo?.projectIdentifier;
+    if (typeof path === "string" && /^([/\\]|[A-Za-z]:[/\\])/.test(path)) {
+      return path;
+    }
+  } catch (error) {
+    console.warn("[source-control] could not get the font's path from Fontra", error);
+  }
+  return projectIdentifier;
 }
 
 function addPanel(editor, pluginPath, options) {
