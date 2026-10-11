@@ -827,7 +827,7 @@ export function isBinary(buffer) {
   return buffer.subarray(0, BINARY_SNIFF_BYTES).includes(0);
 }
 
-function describeBuffer(buffer, includeText = true) {
+export function describeBuffer(buffer, includeText = true) {
   if (buffer === null) {
     return {
       exists: false,
@@ -846,7 +846,7 @@ function describeBuffer(buffer, includeText = true) {
 
 // Unified diff of two buffers through `git diff --no-index`, which works for any
 // pair of versions (commits, the index or the working tree).
-async function diffBuffers(oldBuffer, newBuffer, context) {
+export async function diffBuffers(oldBuffer, newBuffer, context) {
   const folder = await mkdtemp(path.join(os.tmpdir(), "fontra-git-bridge-"));
   try {
     await writeFile(path.join(folder, "old"), oldBuffer ?? "");

@@ -1,0 +1,5 @@
+dist/
+*.vsix
+# Copied from the repository's root by build.mjs
+LICENSE
+.vscode-test/

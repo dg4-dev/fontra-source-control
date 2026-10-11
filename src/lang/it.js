@@ -270,4 +270,19 @@ export default {
   "graph.detail.committer": "Committer",
   "graph.detail.files": "{count} file modificati",
   "graph.detail.vsFirstParent": "rispetto al primo genitore",
+
+  // VS Code extension: preview of glyph and kerning files
+  "preview.cannotRead": "Impossibile leggere il file: {message}",
+  "preview.stale":
+    "Impossibile leggere il file ({message}). Viene mostrata l’ultima versione leggibile.",
+  "preview.kerningStale":
+    "Impossibile leggere la crenatura. Viene mostrata l’ultima versione leggibile.",
+  "preview.noGlyphs": "Questo file non contiene glifi.",
+  "preview.noKerning": "Questo font non ha crenatura.",
+  "preview.kerningSummary": "{count} coppie di crenatura",
+  "preview.value": "Valore",
+  "preview.advance": "Larghezza di avanzamento: {value}",
+  "preview.outline": "Contorni: {contours} · Nodi: {nodes}",
+  "preview.components": "Componenti: {names}",
+  "preview.anchors": "Àncore: {names}",
 };

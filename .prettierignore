@@ -1,1 +1,4 @@
 test/fixtures/
+vscode/dist/
+vscode/.vscode-test/
+vscode/package-lock.json

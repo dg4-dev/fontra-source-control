@@ -1,0 +1,176 @@
+{
+  "name": "fontra-preview",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "0.1.0",
+  "publisher": "dg4-dev",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dg4-dev/fontra-source-control.git",
+    "directory": "vscode"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Visualization",
+    "SCM Providers",
+    "Other"
+  ],
+  "keywords": [
+    "font",
+    "glyph",
+    "ufo",
+    "fontra",
+    "glyphs",
+    "kerning",
+    "diff",
+    "git"
+  ],
+  "main": "./dist/extension.js",
+  "l10n": "./l10n",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "fontraPreview.openChanges",
+        "title": "%command.openChanges%",
+        "category": "Fontra",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "fontraPreview.showHistory",
+        "title": "%command.showHistory%",
+        "category": "Fontra",
+        "icon": "$(history)"
+      },
+      {
+        "command": "fontraPreview.openPreview",
+        "title": "%command.openPreview%",
+        "category": "Fontra",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "fontraPreview.openTimelineChanges",
+        "title": "%command.openChanges%",
+        "category": "Fontra"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "fontraPreview.openChanges",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i"
+        },
+        {
+          "command": "fontraPreview.showHistory",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i"
+        },
+        {
+          "command": "fontraPreview.openPreview",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i"
+        },
+        {
+          "command": "fontraPreview.openTimelineChanges",
+          "when": "false"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "fontraPreview.openPreview",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i",
+          "group": "navigation@1"
+        },
+        {
+          "command": "fontraPreview.openChanges",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i",
+          "group": "navigation@2"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "fontraPreview.openPreview",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i",
+          "group": "fontra@1"
+        },
+        {
+          "command": "fontraPreview.openChanges",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i",
+          "group": "fontra@2"
+        },
+        {
+          "command": "fontraPreview.showHistory",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i",
+          "group": "fontra@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "fontraPreview.openPreview",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i && !explorerResourceIsFolder",
+          "group": "fontra@1"
+        },
+        {
+          "command": "fontraPreview.openChanges",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i && !explorerResourceIsFolder",
+          "group": "fontra@2"
+        },
+        {
+          "command": "fontraPreview.showHistory",
+          "when": "resourcePath =~ /\\.(glif|glyphs)$|\\.glyphspackage[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.glyph|fontinfo\\.plist)$|\\.fontra[\\/\\\\](glyphs[\\/\\\\][^\\/\\\\]+\\.json|kerning\\.csv)$|\\.ufo[\\/\\\\](kerning|groups)\\.plist$/i && !explorerResourceIsFolder",
+          "group": "fontra@3"
+        }
+      ],
+      "scm/resourceState/context": [
+        {
+          "command": "fontraPreview.openChanges",
+          "when": "scmProvider == git",
+          "group": "navigation@100"
+        }
+      ],
+      "timeline/item/context": [
+        {
+          "command": "fontraPreview.openTimelineChanges",
+          "when": "timelineItem =~ /git:file:commit\\b/",
+          "group": "1_actions@100"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Fontra Preview",
+      "properties": {
+        "fontraPreview.glyphDiffMode": {
+          "type": "string",
+          "enum": [
+            "overlay",
+            "sideBySide"
+          ],
+          "enumDescriptions": [
+            "%config.glyphDiffMode.overlay%",
+            "%config.glyphDiffMode.sideBySide%"
+          ],
+          "default": "overlay",
+          "description": "%config.glyphDiffMode%"
+        },
+        "fontraPreview.showPoints": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.showPoints%"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "package": "node build.mjs --production && vsce package --no-dependencies",
+    "test": "node --test \"test/*.test.mjs\"",
+    "test:integration": "node build.mjs && node test/integration/run.mjs"
+  },
+  "devDependencies": {
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.25.12"
+  }
+}

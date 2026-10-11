@@ -1,0 +1,13 @@
+{
+  "No commits have changed {0} yet.": "{0} を変更したコミットはまだありません。",
+  "Changes of {0}": "{0} の変更",
+  "Pick a commit to see what it changed": "変更を見るコミットを選んでください",
+  "Open the changes from a commit in the Timeline view.": "タイムラインビューのコミットから開いてください。",
+  "Preview {0}": "プレビュー {0}",
+  "Working Tree": "作業ツリー",
+  "Index": "インデックス",
+  "Open a glyph or kerning file first.": "先にグリフかカーニングのファイルを開いてください。",
+  "Only files on this computer can be shown.": "このコンピューター上のファイルだけを表示できます。",
+  "{0} is not in a git repository.": "{0} は Git リポジトリの中にありません。",
+  "{0} is not a glyph or kerning file. Glyph files are .glif (UFO), glyphs/*.json (.fontra), glyphs/*.glyph (.glyphspackage) and .glyphs; kerning files are kerning.plist and groups.plist (UFO), kerning.csv (.fontra) and fontinfo.plist (.glyphspackage).": "{0} はグリフやカーニングのファイルではありません。グリフのファイルは .glif (UFO)、glyphs/*.json (.fontra)、glyphs/*.glyph (.glyphspackage)、.glyphs で、カーニングのファイルは kerning.plist と groups.plist (UFO)、kerning.csv (.fontra)、fontinfo.plist (.glyphspackage) です。"
+}

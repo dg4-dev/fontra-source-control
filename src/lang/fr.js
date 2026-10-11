@@ -271,4 +271,19 @@ export default {
   "graph.detail.committer": "Validateur",
   "graph.detail.files": "{count} fichiers modifiés",
   "graph.detail.vsFirstParent": "comparé au premier parent",
+
+  // VS Code extension: preview of glyph and kerning files
+  "preview.cannotRead": "Impossible de lire le fichier : {message}",
+  "preview.stale":
+    "Impossible de lire le fichier ({message}). La dernière version lisible est affichée.",
+  "preview.kerningStale":
+    "Impossible de lire le crénage. La dernière version lisible est affichée.",
+  "preview.noGlyphs": "Ce fichier ne contient aucun glyphe.",
+  "preview.noKerning": "Cette fonte n’a pas de crénage.",
+  "preview.kerningSummary": "{count} paires de crénage",
+  "preview.value": "Valeur",
+  "preview.advance": "Largeur d'avance : {value}",
+  "preview.outline": "Contours : {contours} · Nœuds : {nodes}",
+  "preview.components": "Composants : {names}",
+  "preview.anchors": "Ancrages : {names}",
 };

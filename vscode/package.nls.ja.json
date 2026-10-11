@@ -1,0 +1,11 @@
+{
+  "displayName": "Fontra Preview",
+  "description": "グリフとカーニングのファイルを編集しながらプレビューし、その変更を図で表示します (UFO、.fontra、.glyphs、.glyphspackage)",
+  "command.openChanges": "変更を図で開く",
+  "command.showHistory": "履歴から変更を図で開く…",
+  "command.openPreview": "プレビューを横に開く",
+  "config.glyphDiffMode": "差分ビューで、グリフの変更前と変更後のアウトラインをどう並べるか。",
+  "config.glyphDiffMode.overlay": "2 つを重ねる",
+  "config.glyphDiffMode.sideBySide": "変更前を左、変更後を右に並べる",
+  "config.showPoints": "グリフの差分とプレビューでノードとハンドルを表示します。"
+}
