@@ -12,7 +12,7 @@ A [Fontra](https://github.com/fontra/fontra) plugin that brings Git into the gly
 - Colors follow Fontra's light and dark themes
 - The UI follows Fontra's display language (Application settings → Display Language), with every language Fontra has a translation for
 
-The same glyph and kerning drawings are also available in VS Code: the [Fontra Glyph Diff extension](vscode/README.md) in the `vscode/` folder shows changes from VS Code's Source Control view as pictures, and previews glyph and kerning files while you edit them.
+The same glyph and kerning drawings are also available in VS Code: the [Fontra Preview extension](vscode/README.md) in the `vscode/` folder shows changes from VS Code's Source Control view as pictures, and previews glyph and kerning files while you edit them.
 
 | Source Control panel | Glyph diff (overlay) |
 | --- | --- |

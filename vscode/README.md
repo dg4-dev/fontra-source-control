@@ -1,13 +1,13 @@
-# Fontra Glyph Diff for VS Code
+# Fontra Preview for VS Code
 
-A VS Code extension that draws font sources instead of showing them as XML, JSON or plist text. It uses the drawing code of the [Fontra Source Control](https://github.com/dg4-dev/fontra-source-control) plugin, so diffs look the same in Fontra and in VS Code.
+A VS Code extension that draws font sources instead of showing them only as XML, JSON or plist text: a preview of the glyph or kerning file you are editing, and its changes as pictures. It uses the drawing code of the [Fontra Source Control](https://github.com/dg4-dev/fontra-source-control) plugin, so diffs look the same in Fontra and in VS Code.
 
+- **Open Preview to the Side**: the glyph (outline, nodes, components, anchors) or the font's kerning pairs, redrawn while you type, also before the file is saved
 - **Open Changes as Drawing**: the changes of a glyph or kerning file as a picture
   - Glyphs: the area only the old version covers is red, the area only the new version covers is green and the shared area is gray. Moved nodes are blue. Overlay or side by side
   - Kerning: every changed pair drawn at its old and new spacing, with the values and the difference
   - Every file also has a line diff (Text tab)
 - **Open Changes from History…**: pick a commit that changed the file and see what it changed
-- **Open Preview to the Side**: the glyph (outline, nodes, components, anchors) or the font's kerning pairs, redrawn while you type, also before the file is saved
 
 | Glyph preview                                                                                    | Kerning preview                                                                     |
 | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
@@ -30,13 +30,13 @@ Components are drawn by reading their base glyphs from the same font, and kernin
 
 You need [git](https://git-scm.com/downloads) for the diffs (the preview works without it). Unlike the Fontra plugin, the extension needs no git bridge: VS Code runs git itself.
 
-1. Get `fontra-glyph-diff-<version>.vsix`: build it (see [Development](#development)), or download it from the repository's [Releases](https://github.com/dg4-dev/fontra-source-control/releases) when a release has it attached
+1. Get `fontra-preview-<version>.vsix`: build it (see [Development](#development)), or download it from the repository's [Releases](https://github.com/dg4-dev/fontra-source-control/releases) when a release has it attached
 2. In VS Code, open the Extensions view, choose **⋯ → Install from VSIX…** and pick the file
 
 Or from a terminal:
 
 ```plaintext
-code --install-extension fontra-glyph-diff-0.1.0.vsix
+code --install-extension fontra-preview-0.1.0.vsix
 ```
 
 ## Usage
@@ -66,10 +66,10 @@ In the drawings:
 
 ## Settings
 
-| Setting                         | Default   | Description                                                             |
-| ------------------------------- | --------- | ----------------------------------------------------------------------- |
-| `fontraGlyphDiff.glyphDiffMode` | `overlay` | `overlay` or `sideBySide`. Also changed by the buttons in the diff view |
-| `fontraGlyphDiff.showPoints`    | `true`    | Show nodes and handles. Also changed by the Nodes checkbox              |
+| Setting                       | Default   | Description                                                             |
+| ----------------------------- | --------- | ----------------------------------------------------------------------- |
+| `fontraPreview.glyphDiffMode` | `overlay` | `overlay` or `sideBySide`. Also changed by the buttons in the diff view |
+| `fontraPreview.showPoints`    | `true`    | Show nodes and handles. Also changed by the Nodes checkbox              |
 
 ## Display language
 
@@ -115,7 +115,7 @@ npm install
 npm run build              # dist/extension.js and dist/webview.js
 npm test                   # unit tests
 npm run test:integration   # starts VS Code with the extension (downloaded into .vscode-test/ the first time)
-npm run package            # fontra-glyph-diff-<version>.vsix
+npm run package            # fontra-preview-<version>.vsix
 ```
 
 On Linux without a display, run the integration tests with `xvfb-run -a npm run test:integration`.

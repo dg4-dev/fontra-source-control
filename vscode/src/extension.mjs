@@ -29,10 +29,10 @@ const diffs = new Map(); // request key → FontPanel
 export function activate(context) {
   extensionContext = context;
   const commands = {
-    "fontraGlyphDiff.openChanges": openChanges,
-    "fontraGlyphDiff.showHistory": showHistory,
-    "fontraGlyphDiff.openPreview": openPreview,
-    "fontraGlyphDiff.openTimelineChanges": openTimelineChanges,
+    "fontraPreview.openChanges": openChanges,
+    "fontraPreview.showHistory": showHistory,
+    "fontraPreview.openPreview": openPreview,
+    "fontraPreview.openTimelineChanges": openTimelineChanges,
   };
   for (const [id, command] of Object.entries(commands)) {
     context.subscriptions.push(

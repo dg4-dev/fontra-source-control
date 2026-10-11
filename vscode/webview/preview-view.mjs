@@ -184,7 +184,7 @@ export class PreviewView {
         await this._renderKerning(token);
       }
     } catch (error) {
-      console.error("[fontra-glyph-diff]", error);
+      console.error("[fontra-preview]", error);
       if (token === this._token) {
         this._showMessage(t("preview.cannotRead", { message: error.message }));
       }

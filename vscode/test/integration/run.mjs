@@ -12,7 +12,7 @@ import { runTests } from "@vscode/test-electron";
 import { makeFixture } from "./fixture.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const folder = mkdtempSync(path.join(os.tmpdir(), "fontra-glyph-diff-it-"));
+const folder = mkdtempSync(path.join(os.tmpdir(), "fontra-preview-it-"));
 try {
   await makeFixture(folder);
   await runTests({

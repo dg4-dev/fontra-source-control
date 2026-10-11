@@ -1,6 +1,6 @@
 {
-  "displayName": "Fontra Glyph Diff",
-  "description": "グリフとカーニングの変更を図で表示し、グリフとカーニングのファイルを編集しながらプレビューします (UFO、.fontra、.glyphs、.glyphspackage)",
+  "displayName": "Fontra Preview",
+  "description": "グリフとカーニングのファイルを編集しながらプレビューし、その変更を図で表示します (UFO、.fontra、.glyphs、.glyphspackage)",
   "command.openChanges": "変更を図で開く",
   "command.showHistory": "履歴から変更を図で開く…",
   "command.openPreview": "プレビューを横に開く",

@@ -1,6 +1,6 @@
 {
-  "displayName": "Fontra Glyph Diff",
-  "description": "Glyph and kerning changes drawn as pictures, and live previews of glyph and kerning files (UFO, .fontra, .glyphs, .glyphspackage)",
+  "displayName": "Fontra Preview",
+  "description": "Live previews of glyph and kerning files, and their changes drawn as pictures (UFO, .fontra, .glyphs, .glyphspackage)",
   "command.openChanges": "Open Changes as Drawing",
   "command.showHistory": "Open Changes from History…",
   "command.openPreview": "Open Preview to the Side",

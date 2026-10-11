@@ -23,7 +23,7 @@ function glif(advance) {
 }
 
 before(async () => {
-  folder = mkdtempSync(path.join(os.tmpdir(), "fontra-glyph-diff-test-"));
+  folder = mkdtempSync(path.join(os.tmpdir(), "fontra-preview-test-"));
   mkdirSync(path.join(folder, "Font.ufo", "glyphs"), { recursive: true });
   glifPath = path.join(folder, "Font.ufo", "glyphs", "A_.glif");
   writeFileSync(glifPath, glif(500));
@@ -72,7 +72,7 @@ test("file history", async () => {
 });
 
 test("files outside a repository", async () => {
-  const outside = mkdtempSync(path.join(os.tmpdir(), "fontra-glyph-diff-norepo-"));
+  const outside = mkdtempSync(path.join(os.tmpdir(), "fontra-preview-norepo-"));
   try {
     await assert.rejects(
       GitFiles.forFile(path.join(outside, "A.glif")),

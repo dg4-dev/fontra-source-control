@@ -50,19 +50,19 @@ test("commands are registered", async () => {
     "openPreview",
     "openTimelineChanges",
   ]) {
-    assert.ok(commands.includes(`fontraGlyphDiff.${id}`), id);
+    assert.ok(commands.includes(`fontraPreview.${id}`), id);
   }
 });
 
 test("preview of the active editor's glyph reads its components", async () => {
   await vscode.window.showTextDocument(fileUri("glyphs/A_acute.glif"));
-  await vscode.commands.executeCommand("fontraGlyphDiff.openPreview");
+  await vscode.commands.executeCommand("fontraPreview.openPreview");
   await waitForPanel("Preview A_acute.glif", 1);
 });
 
 test("preview of a kerning file from the Explorer", async () => {
   await vscode.commands.executeCommand(
-    "fontraGlyphDiff.openPreview",
+    "fontraPreview.openPreview",
     fileUri("kerning.plist")
   );
   await waitForPanel("Preview kerning.plist", 1);
@@ -70,7 +70,7 @@ test("preview of a kerning file from the Explorer", async () => {
 
 test("uncommitted changes of a glyph", async () => {
   await vscode.commands.executeCommand(
-    "fontraGlyphDiff.openChanges",
+    "fontraPreview.openChanges",
     fileUri("glyphs/A_.glif")
   );
   await waitForPanel("A_.glif (HEAD ↔ Working Tree)", 2);
@@ -90,7 +90,7 @@ test("a diff of uncommitted changes redraws when the file changes on disk", asyn
 
 test("uncommitted changes of the kerning", async () => {
   await vscode.commands.executeCommand(
-    "fontraGlyphDiff.openChanges",
+    "fontraPreview.openChanges",
     fileUri("kerning.plist")
   );
   await waitForPanel("kerning.plist (HEAD ↔ Working Tree)", 2);
@@ -110,13 +110,13 @@ test("the two sides of a diff editor", async () => {
       vscode.TabInputTextDiff,
     "the diff editor"
   );
-  await vscode.commands.executeCommand("fontraGlyphDiff.openChanges", modified);
+  await vscode.commands.executeCommand("fontraPreview.openChanges", modified);
   await waitForPanel("O_.glif (Index ↔ Working Tree)", 2);
 });
 
 test("a commit picked from the file's history", async () => {
   const done = vscode.commands.executeCommand(
-    "fontraGlyphDiff.showHistory",
+    "fontraPreview.showHistory",
     fileUri("kerning.plist")
   );
   await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -137,7 +137,7 @@ test("a commit picked from the file's history", async () => {
 test("files that are not glyphs or kerning open nothing", async () => {
   const before = api.panels().length;
   await vscode.commands.executeCommand(
-    "fontraGlyphDiff.openPreview",
+    "fontraPreview.openPreview",
     fileUri("fontinfo.plist")
   );
   await new Promise((resolve) => setTimeout(resolve, 500));
@@ -146,7 +146,7 @@ test("files that are not glyphs or kerning open nothing", async () => {
 
 exports.run = async () => {
   const extension = vscode.extensions.all.find(
-    (candidate) => candidate.packageJSON.name === "fontra-glyph-diff"
+    (candidate) => candidate.packageJSON.name === "fontra-preview"
   );
   api = await extension.activate();
   let failed = 0;

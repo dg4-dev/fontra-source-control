@@ -5,8 +5,8 @@
 import { randomBytes } from "node:crypto";
 import * as vscode from "vscode";
 
-const VIEW_TYPE = "fontraGlyphDiff.view";
-const SETTINGS_SECTION = "fontraGlyphDiff";
+const VIEW_TYPE = "fontraPreview.view";
+const SETTINGS_SECTION = "fontraPreview";
 const SETTING_KEYS = ["glyphDiffMode", "showPoints"];
 
 export function readSettings() {
