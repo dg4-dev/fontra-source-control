@@ -267,4 +267,19 @@ export default {
   "graph.detail.committer": "コミッター",
   "graph.detail.files": "{count} 個のファイルを変更",
   "graph.detail.vsFirstParent": "1 つ目の親との比較",
+
+  // VS Code extension: preview of glyph and kerning files
+  "preview.cannotRead": "ファイルを読めませんでした: {message}",
+  "preview.stale":
+    "ファイルを読めませんでした({message})。最後に読めた内容を表示しています。",
+  "preview.kerningStale":
+    "カーニングを読めませんでした。最後に読めた内容を表示しています。",
+  "preview.noGlyphs": "このファイルにグリフはありません。",
+  "preview.noKerning": "このフォントにカーニングはありません。",
+  "preview.kerningSummary": "カーニングペア {count} 件",
+  "preview.value": "値",
+  "preview.advance": "グリフ幅: {value}",
+  "preview.outline": "パスの数: {contours} · ノードの数: {nodes}",
+  "preview.components": "コンポーネント: {names}",
+  "preview.anchors": "アンカー: {names}",
 };

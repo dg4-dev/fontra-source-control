@@ -457,6 +457,22 @@ const styles = `
   }
 `;
 
+// For a view that fills its page (the VS Code extension's webview) instead of
+// floating over Fontra's editor
+const embeddedCSS = `
+  :host {
+    z-index: auto;
+    background: none;
+  }
+  .window {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+`;
+
+export { styles as diffViewCSS };
+
 export class DiffView {
   static open(options) {
     const view = new DiffView(options);
@@ -465,10 +481,14 @@ export class DiffView {
   }
 
   // request: { path, oldPath, from, to, fromLabel, toLabel, status }
-  constructor({ client, settings, request }) {
+  // embedded: fill the page, without a close button or Escape to close.
+  // extraCSS is added after the view's own styles.
+  constructor({ client, settings, request, embedded = false, extraCSS = "" }) {
     this.client = client;
     this.settings = settings;
     this.request = request;
+    this.embedded = embedded;
+    this.extraCSS = extraCSS;
     const readText = (rev, path) =>
       rev === "EMPTY" ? Promise.resolve(null) : client.readText(rev, path);
     this.files = new FontFiles(readText, request.path);
@@ -496,7 +516,7 @@ export class DiffView {
     const root = this.host.attachShadow({ mode: "open" });
     isolateKeyboard(root);
     const style = document.createElement("style");
-    style.textContent = styles;
+    style.textContent = styles + (this.embedded ? embeddedCSS : "") + this.extraCSS;
     const { dir, name } = splitPath(this.request.path);
     this.tabBar = el("div", { class: "tabs", role: "tablist" });
     this.content = el("div", { class: "content" });
@@ -533,18 +553,22 @@ export class DiffView {
           )
         ),
         this.tabBar,
-        iconButton("close", t("action.close"), () => this.close())
+        this.embedded
+          ? null
+          : iconButton("close", t("action.close"), () => this.close())
       ),
       this.content
     );
     root.append(style, this.window);
-    // A click on the dimmed area around the window closes the view
-    this.host.addEventListener("pointerdown", (event) => {
-      if (event.composedPath()[0] === this.host) {
-        this.close();
-      }
-    });
-    this._removeEscape = pushEscapeHandler(() => this.close());
+    if (!this.embedded) {
+      // A click on the dimmed area around the window closes the view
+      this.host.addEventListener("pointerdown", (event) => {
+        if (event.composedPath()[0] === this.host) {
+          this.close();
+        }
+      });
+      this._removeEscape = pushEscapeHandler(() => this.close());
+    }
     document.body.appendChild(this.host);
     this._renderTabs();
     this._showTab(this.activeTab);
@@ -1462,7 +1486,7 @@ function round(value) {
 
 // --- kerning drawing ------------------------------------------------------------------
 
-function formatValue(value) {
+export function formatValue(value) {
   return value === null || value === undefined ? "—" : String(round(value));
 }
 
@@ -1482,7 +1506,7 @@ function formatDelta(pair) {
 
 // Placement of the glyphs of both versions of a pair. Missing glyphs are
 // drawn as empty boxes with their name.
-function pairPlacement(side) {
+export function pairPlacement(side) {
   if (!side) {
     return null;
   }
@@ -1491,7 +1515,7 @@ function pairPlacement(side) {
   return { leftAdvance, rightOffset, rightAdvance: side.right?.advance ?? 500 };
 }
 
-function pairLayout(drawings) {
+export function pairLayout(drawings) {
   const boxes = [];
   for (const side of [drawings.old, drawings.new]) {
     const placement = pairPlacement(side);
@@ -1535,7 +1559,7 @@ function translateContours(contours, dx) {
 
 // Contours of a pair as drawn: the left glyph at 0, the right glyph moved by
 // the left advance plus the kerning value
-function pairContours(side) {
+export function pairContours(side) {
   if (!side) {
     return null;
   }

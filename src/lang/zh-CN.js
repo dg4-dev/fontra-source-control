@@ -261,4 +261,17 @@ export default {
   "graph.detail.committer": "提交者",
   "graph.detail.files": "更改了 {count} 个文件",
   "graph.detail.vsFirstParent": "与第一个父提交比较",
+
+  // VS Code extension: preview of glyph and kerning files
+  "preview.cannotRead": "无法读取文件：{message}",
+  "preview.stale": "无法读取文件（{message}）。正在显示最后一次能读取的内容。",
+  "preview.kerningStale": "无法读取字偶距。正在显示最后一次能读取的内容。",
+  "preview.noGlyphs": "此文件中没有字形。",
+  "preview.noKerning": "此字体没有字偶距。",
+  "preview.kerningSummary": "{count} 个字偶距对",
+  "preview.value": "值",
+  "preview.advance": "字形宽度：{value}",
+  "preview.outline": "轮廓：{contours} · 节点：{nodes}",
+  "preview.components": "部件：{names}",
+  "preview.anchors": "锚点：{names}",
 };

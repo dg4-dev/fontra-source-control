@@ -11,6 +11,9 @@
   "bin": {
     "fontra-git-bridge": "bridge/cli.js"
   },
+  "files": [
+    "bridge/"
+  ],
   "scripts": {
     "bridge": "node bridge/cli.js",
     "test": "node --test \"test/*.test.js\""

@@ -43,7 +43,48 @@ export const strings = {
   "ru": ru,
 };
 
+// Set by hosts other than Fontra (the VS Code extension), which know the
+// display language without Fontra's setting
+let languageOverride = null;
+
+export function setLanguage(code) {
+  languageOverride = code ? resolveLanguage(code) : null;
+}
+
+// The table that best matches a language code from elsewhere, such as VS
+// Code's "zh-cn", "pt-br" or "es": the same code in any case, then a table for
+// the same base language.
+export function resolveLanguage(code) {
+  if (typeof code !== "string" || !code) {
+    return DEFAULT_LANGUAGE;
+  }
+  const lower = code.toLowerCase().replace("_", "-");
+  const names = Object.keys(strings);
+  const exact = names.find((name) => name.toLowerCase() === lower);
+  if (exact) {
+    return exact;
+  }
+  const aliases = {
+    "zh-hans": "zh-CN",
+    "zh-sg": "zh-CN",
+    "zh-hant": "zh-TW",
+    "zh-hk": "zh-TW",
+  };
+  if (aliases[lower]) {
+    return aliases[lower];
+  }
+  const base = lower.split("-")[0];
+  return (
+    names.find((name) => name.toLowerCase() === base) ??
+    names.find((name) => name.toLowerCase().startsWith(`${base}-`)) ??
+    DEFAULT_LANGUAGE
+  );
+}
+
 export function currentLanguage(storage = safeLocalStorage()) {
+  if (languageOverride) {
+    return languageOverride;
+  }
   try {
     // Fontra stores string settings as raw (non-JSON) strings
     return storage?.getItem(LANGUAGE_STORAGE_KEY) || DEFAULT_LANGUAGE;

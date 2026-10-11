@@ -1,0 +1,11 @@
+{
+  "displayName": "Fontra Glyph Diff",
+  "description": "Glyph and kerning changes drawn as pictures, and live previews of glyph and kerning files (UFO, .fontra, .glyphs, .glyphspackage)",
+  "command.openChanges": "Open Changes as Drawing",
+  "command.showHistory": "Open Changes from History…",
+  "command.openPreview": "Open Preview to the Side",
+  "config.glyphDiffMode": "How the old and new outlines of a glyph are shown in the diff view.",
+  "config.glyphDiffMode.overlay": "Both versions on top of each other",
+  "config.glyphDiffMode.sideBySide": "The old version on the left, the new one on the right",
+  "config.showPoints": "Show nodes and handles in glyph diffs and previews."
+}

@@ -270,4 +270,19 @@ export default {
   "graph.detail.committer": "Committer",
   "graph.detail.files": "{count} Dateien geändert",
   "graph.detail.vsFirstParent": "verglichen mit dem ersten Elternteil",
+
+  // VS Code extension: preview of glyph and kerning files
+  "preview.cannotRead": "Die Datei konnte nicht gelesen werden: {message}",
+  "preview.stale":
+    "Die Datei konnte nicht gelesen werden ({message}). Angezeigt wird die letzte lesbare Version.",
+  "preview.kerningStale":
+    "Das Kerning konnte nicht gelesen werden. Angezeigt wird die letzte lesbare Version.",
+  "preview.noGlyphs": "Diese Datei enthält keine Glyphen.",
+  "preview.noKerning": "Diese Schrift hat kein Kerning.",
+  "preview.kerningSummary": "{count} Kerning-Paare",
+  "preview.value": "Wert",
+  "preview.advance": "Breite: {value}",
+  "preview.outline": "Konturen: {contours} · Punkte: {nodes}",
+  "preview.components": "Komponenten: {names}",
+  "preview.anchors": "Anker: {names}",
 };

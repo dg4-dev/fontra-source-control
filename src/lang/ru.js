@@ -268,4 +268,19 @@ export default {
   "graph.detail.committer": "Фиксатор",
   "graph.detail.files": "Изменено файлов: {count}",
   "graph.detail.vsFirstParent": "по сравнению с первым родителем",
+
+  // VS Code extension: preview of glyph and kerning files
+  "preview.cannotRead": "Не удалось прочитать файл: {message}",
+  "preview.stale":
+    "Не удалось прочитать файл ({message}). Показана последняя версия, которую удалось прочитать.",
+  "preview.kerningStale":
+    "Не удалось прочитать кернинг. Показана последняя версия, которую удалось прочитать.",
+  "preview.noGlyphs": "В этом файле нет глифов.",
+  "preview.noKerning": "В этом шрифте нет кернинга.",
+  "preview.kerningSummary": "Кернинговых пар: {count}",
+  "preview.value": "Значение",
+  "preview.advance": "Ширина глифа: {value}",
+  "preview.outline": "Контуры: {contours} · Точки: {nodes}",
+  "preview.components": "Компоненты: {names}",
+  "preview.anchors": "Якоря: {names}",
 };
